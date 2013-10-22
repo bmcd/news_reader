@@ -3,6 +3,8 @@ class Feed < ActiveRecord::Base
 
   has_many :entries, :dependent => :destroy
 
+  before_create :ensure_title
+
   def self.find_or_create_by_url(url)
     feed = Feed.find_by_url(url)
     return feed if feed
@@ -10,7 +12,9 @@ class Feed < ActiveRecord::Base
     begin
       feed_data = SimpleRSS.parse(open(url))
       feed = Feed.create!(title: feed_data.title, url: url)
-      feed.reload
+      feed_data.entries.each do |entry_data|
+        Entry.create_from_json!(entry_data, feed)
+      end
     rescue SimpleRSSError
       return nil
     end
@@ -36,5 +40,11 @@ class Feed < ActiveRecord::Base
     rescue SimpleRSSError
       return false
     end
+  end
+
+  private
+
+  def ensure_title
+    self.title ||= SimpleRSS.parse(open(self.url)).title
   end
 end

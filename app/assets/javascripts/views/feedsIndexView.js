@@ -11,13 +11,18 @@ NewsReader.Views.FeedsIndexView = Backbone.View.extend({
 		"click button": "submit"
 	},
 	submit: function(event) {
-		var url = $(event.target).siblings().val();
-		newFeed = NewsReader.feeds.create({ url: url }, {
+		var url = $(event.target).siblings();
+		$(event.target).addClass("disabled");
+		url.parent().removeClass("error");
+		newFeed = NewsReader.feeds.create({ url: url.val() }, {
 			success: function(resp) {
-				console.log("success");
+				console.log(resp);
+				url.val("");
+				$(event.target).removeClass("disabled");
 			},
 			error: function(resp) {
-				console.log("error");
+				url.parent().addClass("error")
+				$(event.target).removeClass("disabled");
 			}
 		});
 	}

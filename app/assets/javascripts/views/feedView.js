@@ -1,6 +1,9 @@
 NewsReader.Views.FeedView = Backbone.View.extend({
+	initialize: function() {
+		this.collection.on("change", this.render.bind(this))
+	},
   render: function() {
-    console.log(this.collection)
+    console.log("rendering")
     this.$el.html(JST["feeds/show"]({ entries: this.collection}));
     return this;
   },
@@ -9,9 +12,9 @@ NewsReader.Views.FeedView = Backbone.View.extend({
   },
   refresh: function (event) {
     var that = this;
-    NewsReader.feeds.fetch({
+    this.collection.fetch({
       success: function(){
-        that.render();
+				console.log("refreshed")
       },
       error: function(){
         console.log("error");

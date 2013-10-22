@@ -45,6 +45,6 @@ class Feed < ActiveRecord::Base
   private
 
   def ensure_title
-    self.title ||= SimpleRSS.parse(open(self.url)).title
+    self.title ||= SimpleRSS.parse(open(url)).title
   end
 end

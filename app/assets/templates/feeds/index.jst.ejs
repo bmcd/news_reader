@@ -1,7 +1,13 @@
-<ul>
+<div class="input-append">
+  <input type="text" class="span2" placeholder="URL">
+  <button type="submit" class="btn btn-primary">Add Feed</button>
+</div>
+<ul class="nav nav-pills">
   <% feeds.each(function(feed) { %>
     <li>
+		<% console.log(feed) %>
       <a href="#feeds/<%= feed.id %>/entries"><%= feed.escape("title")%></a>
     </li>
   <% }); %>
 </ul>
+

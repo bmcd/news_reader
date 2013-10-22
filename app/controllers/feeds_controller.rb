@@ -1,8 +1,8 @@
 class FeedsController < ApplicationController
   def index
-    @feeds = Feed.all
+    @feeds = Feed.includes(:entries)
+
     @feeds.each do |feed|
-      # feed.reload
       feed.reload if feed.updated_at < 2.minutes.ago
     end
 

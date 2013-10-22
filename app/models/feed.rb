@@ -10,9 +10,7 @@ class Feed < ActiveRecord::Base
     begin
       feed_data = SimpleRSS.parse(open(url))
       feed = Feed.create!(title: feed_data.title, url: url)
-      feed_data.entries.each do |entry_data|
-        Entry.create_from_json!(entry_data, feed)
-      end
+      feed.reload
     rescue SimpleRSSError
       return nil
     end

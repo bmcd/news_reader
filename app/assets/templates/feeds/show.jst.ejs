@@ -1,4 +1,6 @@
-<ul>
+<button class="refresh btn">Refresh</button>
+
+<ul class="nav nav-list">
   <% entries.each(function(entry) { %>
     <li>
       <a href="#feeds/<%= entry.get('feed_id') %>/entries/<%= entry.id %>"><%= entry.get('title') %></a>

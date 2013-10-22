@@ -18,7 +18,7 @@ NewsReader.Routers.FeedsRouter = Backbone.Router.extend({
     });
 
 
-    that._swapView(indexView);
+    $(".feeds").html(indexView.render().el);
 
   },
 
@@ -31,7 +31,7 @@ NewsReader.Routers.FeedsRouter = Backbone.Router.extend({
       model: entry
     });
 
-    that._swapView(entryView);
+    $(".post").html(entryView.render().el);
 
   },
 
@@ -47,7 +47,7 @@ NewsReader.Routers.FeedsRouter = Backbone.Router.extend({
       collection: entries
     });
 
-    that._swapView(feedView);
+    $(".posts").html(feedView.render().el);
 
   },
 

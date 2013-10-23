@@ -3,6 +3,8 @@ class Entry < ActiveRecord::Base
 
   belongs_to :feed
 
+  before_create :chop_description
+
   def self.create_from_json!(entry_data, feed)
     Entry.create({
       guid: entry_data.guid,
@@ -13,5 +15,11 @@ class Entry < ActiveRecord::Base
       json: entry_data,
       feed_id: feed.id
     })
+  end
+
+  private
+
+  def chop_description
+    self.description = self.description[0..254]
   end
 end

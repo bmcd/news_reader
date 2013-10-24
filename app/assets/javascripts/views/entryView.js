@@ -3,4 +3,5 @@ NewsReader.Views.EntryView = Backbone.View.extend({
     this.$el.html(JST["entries/show"]({ entry: this.model}));
     return this;
   },
+	className: "entry-view"
 });

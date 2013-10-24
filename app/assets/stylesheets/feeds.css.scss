@@ -1,3 +1,51 @@
 // Place all the styles related to the feeds controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#content {
+	margin-top: 51px;
+}
+
+.nav-pills.nav-justified {
+	clear: both;
+}
+
+.top-bar {
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	width: 100%;
+	border-bottom: 1px solid #aaa;
+}
+
+.top-bar a {
+	display: block;
+	padding: 15px;
+}
+
+.top-bar-left {
+	float: left;
+}
+
+.top-bar-right {
+	float: right;
+	padding: 10px 15px 0px 15px;
+//	border-left: 1px solid #aaa;
+}
+
+.feeds {
+	position: fixed;
+	width: 250px;
+	top: 51;
+	left: 0;
+	border-right: 1px solid #aaa;
+	height: 100%;
+}
+
+.posts {
+	position: absolute;
+	top: 52px;
+	left: 251px;
+}
+

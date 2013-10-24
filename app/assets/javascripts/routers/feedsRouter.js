@@ -1,6 +1,8 @@
 NewsReader.Routers.FeedsRouter = Backbone.Router.extend({
   initialize: function(options) {
     this.$rootEl = options.$rootEl;
+		this.feedsRendered = false;
+		this.postsRendered = false;
   },
 
   routes: {
@@ -20,18 +22,7 @@ NewsReader.Routers.FeedsRouter = Backbone.Router.extend({
 
     $(".feeds").html(indexView.render().el);
 
-  },
-
-  showEntry: function(feedId, id){
-    var that = this;
-    var entries = NewsReader.feeds.get(feedId).get('entries')
-    var entry = entries.get(id)
-
-    var entryView = new NewsReader.Views.EntryView({
-      model: entry
-    });
-
-    $(".post").html(entryView.render().el);
+		this.feedsRendered = true;
 
   },
 
@@ -39,6 +30,9 @@ NewsReader.Routers.FeedsRouter = Backbone.Router.extend({
 
     var that = this;
 
+	  if (!this.feedsRendered) {
+	  	this.index();
+	  }
 
     var feed = NewsReader.feeds.get(id);
     var entries = feed.get('entries');
@@ -51,10 +45,30 @@ NewsReader.Routers.FeedsRouter = Backbone.Router.extend({
 
   },
 
+  showEntry: function(feedId, id){
+
+    var that = this;
+
+	  if (!this.postsRendered) {
+	  	this.show(feedId);
+	  }
+
+    var entries = NewsReader.feeds.get(feedId).get('entries')
+    var entry = entries.get(id)
+
+    var entryView = new NewsReader.Views.EntryView({
+      model: entry
+    });
+
+    $("#" + feedId + "-" + id).after(entryView.render().el);
+
+		this.postsRendered = true;
+
+  },
+
   _swapView: function (view) {
     this._currentView && this._currentView.remove();
     this._currenView = view;
     this.$rootEl.html(view.render().$el);
   }
-
 })

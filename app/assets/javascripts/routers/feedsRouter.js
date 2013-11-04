@@ -55,8 +55,12 @@ NewsReader.Routers.FeedsRouter = Backbone.Router.extend({
 	  if (!this.postsRendered) {
 	  	this.show(feedId);
 	  }
-		$(".posts li a").removeClass("highlighted");
-		$("#" + feedId + "-" + id).addClass("highlighted");
+		if (this.$currentEntryElement) {
+			this.$currentEntryElement.removeClass("highlighted")
+				.siblings().remove();
+		};
+
+		this.$currentEntryElement = $("#" + feedId + "-" + id).addClass("highlighted");
 
     var entries = NewsReader.feeds.get(feedId).get('entries')
     var entry = entries.get(id)
